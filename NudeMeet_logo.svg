@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <filter id="glowPink" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="glowCyan" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="glowOrange" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <linearGradient id="pinkText" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ff5d91"/>
+      <stop offset="100%" stop-color="#ff2d6f"/>
+    </linearGradient>
+    <linearGradient id="cyanText" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4ffaff"/>
+      <stop offset="100%" stop-color="#00c8d4"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1024" height="1024" fill="#000000"/>
+
+  <!-- Heart outline -->
+  <path d="M 512 350
+           C 445 260, 320 270, 300 380
+           C 278 505, 395 590, 465 645"
+        fill="none"
+        stroke="#ff2d6f"
+        stroke-width="18"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        filter="url(#glowPink)"/>
+
+  <path d="M 512 350
+           C 580 260, 705 270, 725 380
+           C 733 425, 715 465, 685 500"
+        fill="none"
+        stroke="#ff2d6f"
+        stroke-width="18"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        filter="url(#glowPink)"/>
+
+  <!-- Pepper -->
+  <path d="M 650 470
+           C 700 475, 742 520, 730 575
+           C 717 640, 650 690, 560 700
+           C 620 655, 640 600, 625 535
+           C 620 510, 630 488, 650 470 Z"
+        fill="none"
+        stroke="#ff6b35"
+        stroke-width="18"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        filter="url(#glowOrange)"/>
+
+  <!-- Pepper highlight -->
+  <path d="M 662 500 C 690 515, 700 545, 694 575"
+        fill="none"
+        stroke="#ff9a73"
+        stroke-width="7"
+        stroke-linecap="round"
+        opacity="0.85"/>
+
+  <!-- Pepper stem -->
+  <path d="M 666 470
+           C 680 440, 676 410, 665 388
+           C 688 397, 704 420, 700 452"
+        fill="none"
+        stroke="#00f5ff"
+        stroke-width="16"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        filter="url(#glowCyan)"/>
+
+  <!-- Brand -->
+  <text x="512" y="855"
+        text-anchor="middle"
+        font-family="Montserrat, Arial, sans-serif"
+        font-size="138"
+        font-weight="700"
+        letter-spacing="-6">
+    <tspan fill="url(#pinkText)" filter="url(#glowPink)">Nude</tspan><tspan fill="url(#cyanText)" filter="url(#glowCyan)">Meet</tspan>
+  </text>
+</svg>
