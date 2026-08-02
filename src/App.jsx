@@ -486,7 +486,7 @@ function DownloadPage() {
                         </div>
                       </div>
                       <div className="apk-profile-caption"><strong>{liked ? 'Deu match!' : 'Novo match'}</strong><span>{liked ? 'Agora e so chamar.' : 'Alguem especial te curtiu'}</span><i>&#9829;</i></div>
-                      <div className="apk-swipe-actions"><button type="button" onClick={rejectProfile} aria-label="Proximo perfil">&#215;</button><button className={liked ? 'is-liked' : ''} type="button" onClick={likeProfile} aria-label="Curtir perfil">&#9829;</button></div>
+                      <div className="apk-swipe-actions"><button type="button" onClick={rejectProfile} aria-label="Proximo perfil">&#215;</button><button className={liked ? 'is-liked' : ''} type="button" onClick={likeProfile} aria-label="Curtir perfil"><img src="/heart-icon.svg" alt="" /></button></div>
                     </div>
                   )}
                   {phoneTab === 'chats' && (

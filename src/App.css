@@ -535,6 +535,7 @@ h1 em { color: #f0a8ba; font-family: 'Playfair Display', serif; font-weight: 600
 .apk-swipe-actions button { width: 53px; height: 53px; border: 1px solid rgba(255,255,255,.17); border-radius: 50%; color: #fff; background: #080809; font-size: 25px; transition: transform .2s ease, box-shadow .2s ease; }
 .apk-swipe-actions button:hover { transform: scale(1.09); }
 .apk-swipe-actions button:last-child { border-color: var(--apk-pink); background: var(--apk-pink); box-shadow: 0 0 21px rgba(255,23,100,.74); }
+.apk-swipe-actions button img { width: 23px; height: 23px; display: block; margin: auto; object-fit: contain; filter: drop-shadow(0 0 5px rgba(255,255,255,.3)); }
 .apk-swipe-actions button.is-liked { animation: apk-heart-pop .55s ease; }
 
 .apk-chat-panel,
