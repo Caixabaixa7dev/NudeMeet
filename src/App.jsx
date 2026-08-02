@@ -354,9 +354,16 @@ function PaymentScreen({ checkoutData, onBack }) {
 }
 
 function DownloadPage() {
+  const profilePhotos = [
+    '/models/modelo1.jpg',
+    '/models/modelo2.jpg',
+    '/models/modelo3.jpg',
+    '/models/modelo5.jpg',
+  ]
   const [downloadStarted, setDownloadStarted] = useState(false)
   const [phoneTab, setPhoneTab] = useState('discover')
   const [liked, setLiked] = useState(false)
+  const [profileIndex, setProfileIndex] = useState(0)
 
   useEffect(() => {
     const elements = document.querySelectorAll('[data-apk-reveal]')
@@ -372,6 +379,17 @@ function DownloadPage() {
     elements.forEach((element) => observer.observe(element))
     return () => observer.disconnect()
   }, [])
+
+  useEffect(() => {
+    if (!liked) return undefined
+
+    const timeout = window.setTimeout(() => {
+      setLiked(false)
+      setProfileIndex((index) => (index + 1) % profilePhotos.length)
+    }, 900)
+
+    return () => window.clearTimeout(timeout)
+  }, [liked, profilePhotos.length])
 
   function handleDownload() {
     setDownloadStarted(true)
@@ -389,6 +407,17 @@ function DownloadPage() {
   function resetPhoneTilt(event) {
     event.currentTarget.style.setProperty('--phone-rx', '0deg')
     event.currentTarget.style.setProperty('--phone-ry', '0deg')
+  }
+
+  function rejectProfile() {
+    setLiked(false)
+    setProfileIndex((index) => (index + 1) % profilePhotos.length)
+    navigator.vibrate?.(20)
+  }
+
+  function likeProfile() {
+    setLiked(true)
+    navigator.vibrate?.([25, 35, 25])
   }
 
   return (
@@ -435,16 +464,29 @@ function DownloadPage() {
                   {phoneTab === 'discover' && (
                     <div className="apk-discover-panel">
                       <div className="apk-profile-scene">
-                        <img
-                          className="apk-model-photo"
-                          src="https://static-proxy.strpst.com/avatars/b/e/7/be7606e2296c029cebe51949fdcadee1-full"
-                          alt="Perfil ao vivo"
-                          referrerPolicy="no-referrer"
-                        />
+                        {profilePhotos.map((photo, index) => (
+                          <img
+                            className={`apk-model-photo${profileIndex === index ? ' is-active' : ''}`}
+                            src={photo}
+                            alt={`Perfil ao vivo ${index + 1}`}
+                            key={photo}
+                          />
+                        ))}
                         <span className="apk-live-status"><i /> AO VIVO</span>
+                        <div className="apk-slide-dots" aria-label="Selecionar perfil">
+                          {profilePhotos.map((photo, index) => (
+                            <button
+                              className={profileIndex === index ? 'active' : ''}
+                              type="button"
+                              onClick={() => { setLiked(false); setProfileIndex(index) }}
+                              aria-label={`Mostrar perfil ${index + 1}`}
+                              key={photo}
+                            />
+                          ))}
+                        </div>
                       </div>
                       <div className="apk-profile-caption"><strong>{liked ? 'Deu match!' : 'Novo match'}</strong><span>{liked ? 'Agora e so chamar.' : 'Alguem especial te curtiu'}</span><i>&#9829;</i></div>
-                      <div className="apk-swipe-actions"><button type="button" onClick={() => setLiked(false)} aria-label="Recusar">&#215;</button><button className={liked ? 'is-liked' : ''} type="button" onClick={() => setLiked(true)} aria-label="Curtir">&#9829;</button></div>
+                      <div className="apk-swipe-actions"><button type="button" onClick={rejectProfile} aria-label="Proximo perfil">&#215;</button><button className={liked ? 'is-liked' : ''} type="button" onClick={likeProfile} aria-label="Curtir perfil">&#9829;</button></div>
                     </div>
                   )}
                   {phoneTab === 'chats' && (
