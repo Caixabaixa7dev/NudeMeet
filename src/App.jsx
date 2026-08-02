@@ -3,6 +3,7 @@ import QRCode from 'qrcode'
 import './App.css'
 
 function App() {
+  const isDownloadPage = window.location.pathname.replace(/\/+$/, '') === '/baixar'
   const [ageConfirmed, setAgeConfirmed] = useState(false)
   const [screen, setScreen] = useState('login')
   const [checkoutData, setCheckoutData] = useState({ name: '', email: '' })
@@ -17,6 +18,8 @@ function App() {
     setCheckoutData({ name, email })
     setScreen('checkout')
   }
+
+  if (isDownloadPage) return <DownloadPage />
 
   return (
     <>
@@ -346,6 +349,109 @@ function PaymentScreen({ checkoutData, onBack }) {
           <span />
         </div>
       </section>
+    </main>
+  )
+}
+
+function DownloadPage() {
+  const [downloadStarted, setDownloadStarted] = useState(false)
+
+  function handleDownload() {
+    setDownloadStarted(true)
+    navigator.vibrate?.(35)
+  }
+
+  return (
+    <main className="download-page">
+      <div className="download-grid" aria-hidden="true" />
+      <div className="download-aurora download-aurora-pink" aria-hidden="true" />
+      <div className="download-aurora download-aurora-cyan" aria-hidden="true" />
+
+      <header className="download-nav">
+        <a className="download-brand" href="/" aria-label="NudeMeet">
+          <img src="/nudemeet-logo.png" alt="NudeMeet" />
+        </a>
+        <div className="download-nav-actions">
+          <span className="release-pill"><i /> Versao beta</span>
+          <a href="/">Ja tenho acesso <span aria-hidden="true">&#8599;</span></a>
+        </div>
+      </header>
+
+      <section className="download-hero">
+        <div className="download-copy">
+          <p className="download-eyebrow"><span>18+</span> Aplicativo Android oficial</p>
+          <h1>Leve a <em>conexao</em><br />com voce.</h1>
+          <p className="download-lead">Conversas, matches e chamadas em um aplicativo direto, privado e feito para acompanhar seu ritmo.</p>
+
+          <a
+            className={`download-cta${downloadStarted ? ' is-started' : ''}`}
+            href="/NudeMeet.apk"
+            download="NudeMeet.apk"
+            onClick={handleDownload}
+          >
+            <span className="download-cta-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32"><path d="M16 3v17M9 14l7 7 7-7M5 27h22" /></svg>
+            </span>
+            <span className="download-cta-copy">
+              <strong>{downloadStarted ? 'Download iniciado' : 'Baixar NudeMeet'}</strong>
+              <small>APK para Android &middot; 44,5 MB</small>
+            </span>
+            <span className="download-cta-arrow" aria-hidden="true">&#8594;</span>
+          </a>
+
+          <p className="download-requirements">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 21 6v7c0 5-3.4 8.2-9 10-5.6-1.8-9-5-9-10V6l9-4Z" /><path d="m8 12 2.5 2.5L16 9" /></svg>
+            Download direto e seguro &middot; Android 8 ou superior
+          </p>
+        </div>
+
+        <div className="download-device-stage" aria-label="Previa do aplicativo NudeMeet">
+          <div className="device-orbit orbit-pink" aria-hidden="true" />
+          <div className="device-orbit orbit-cyan" aria-hidden="true" />
+          <div className="download-phone">
+            <div className="phone-speaker" aria-hidden="true" />
+            <div className="phone-screen">
+              <div className="phone-header"><span>21:08</span><span>5G &nbsp; 91%</span></div>
+              <img className="phone-logo" src="/nudemeet-logo.png" alt="" />
+              <p className="phone-kicker">PERTO DE VOCE</p>
+              <div className="phone-profile-art" aria-hidden="true">
+                <span className="profile-light one" /><span className="profile-light two" />
+                <div className="profile-silhouette" />
+                <span className="live-badge"><i /> online agora</span>
+              </div>
+              <div className="phone-profile-info"><strong>Nova conexao</strong><span>2 km de distancia</span></div>
+              <div className="phone-actions"><button type="button" aria-label="Recusar">&#215;</button><button type="button" aria-label="Curtir">&#9829;</button></div>
+              <div className="phone-homebar" aria-hidden="true" />
+            </div>
+          </div>
+          <div className="floating-chip chip-private"><span>&#10003;</span> Acesso privado</div>
+          <div className="floating-chip chip-fast"><span>&#9889;</span> Instalacao rapida</div>
+        </div>
+      </section>
+
+      <section className="install-section">
+        <div className="install-heading">
+          <p>INSTALACAO FORA DA LOJA</p>
+          <h2>Pronto em <span>tres passos.</span></h2>
+          <strong>O Android pode solicitar permissao para instalar aplicativos baixados pelo navegador. Isso e normal para arquivos APK.</strong>
+        </div>
+        <div className="install-steps">
+          <article><b>01</b><div className="step-icon"><svg viewBox="0 0 32 32"><path d="M16 3v17M9 14l7 7 7-7M5 27h22" /></svg></div><h3>Baixe o APK</h3><p>Toque no botao principal e aguarde o arquivo terminar de baixar.</p></article>
+          <article><b>02</b><div className="step-icon"><svg viewBox="0 0 32 32"><path d="M16 3 27 8v8c0 6-3.7 10-11 13C8.7 26 5 22 5 16V8l11-5Z" /><path d="M11 16h10M16 11v10" /></svg></div><h3>Autorize a fonte</h3><p>Quando solicitado, permita a instalacao pelo seu navegador.</p></article>
+          <article><b>03</b><div className="step-icon"><svg viewBox="0 0 32 32"><rect x="7" y="3" width="18" height="26" rx="4" /><path d="m11 16 3 3 7-7M13 25h6" /></svg></div><h3>Instale e entre</h3><p>Abra o arquivo, conclua a instalacao e acesse sua conta NudeMeet.</p></article>
+        </div>
+      </section>
+
+      <section className="download-final-cta">
+        <img src="/android-chrome-192x192.png" alt="" />
+        <div><p>Seu proximo match cabe no bolso.</p><h2>Baixe. Entre. <span>Conecte.</span></h2></div>
+        <a href="/NudeMeet.apk" download="NudeMeet.apk" onClick={handleDownload}>Baixar para Android <span>&#8595;</span></a>
+      </section>
+
+      <footer className="download-footer">
+        <span>NudeMeet &copy; 2026 &middot; Conteudo exclusivo para maiores de 18 anos.</span>
+        <div><a href="#termos">Termos</a><a href="#privacidade">Privacidade</a><a href="/">Acessar conta</a></div>
+      </footer>
     </main>
   )
 }
