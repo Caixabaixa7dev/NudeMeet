@@ -355,103 +355,148 @@ function PaymentScreen({ checkoutData, onBack }) {
 
 function DownloadPage() {
   const [downloadStarted, setDownloadStarted] = useState(false)
+  const [phoneTab, setPhoneTab] = useState('discover')
+  const [liked, setLiked] = useState(false)
+
+  useEffect(() => {
+    const elements = document.querySelectorAll('[data-apk-reveal]')
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible')
+          observer.unobserve(entry.target)
+        }
+      })
+    }, { threshold: 0.16 })
+
+    elements.forEach((element) => observer.observe(element))
+    return () => observer.disconnect()
+  }, [])
 
   function handleDownload() {
     setDownloadStarted(true)
     navigator.vibrate?.(35)
   }
 
-  return (
-    <main className="download-page">
-      <div className="download-grid" aria-hidden="true" />
-      <div className="download-aurora download-aurora-pink" aria-hidden="true" />
-      <div className="download-aurora download-aurora-cyan" aria-hidden="true" />
+  function handlePhoneTilt(event) {
+    const bounds = event.currentTarget.getBoundingClientRect()
+    const x = (event.clientX - bounds.left) / bounds.width - 0.5
+    const y = (event.clientY - bounds.top) / bounds.height - 0.5
+    event.currentTarget.style.setProperty('--phone-rx', `${-y * 8}deg`)
+    event.currentTarget.style.setProperty('--phone-ry', `${x * 10}deg`)
+  }
 
-      <header className="download-nav">
-        <a className="download-brand" href="/" aria-label="NudeMeet">
-          <img src="/nudemeet-logo.png" alt="NudeMeet" />
+  function resetPhoneTilt(event) {
+    event.currentTarget.style.setProperty('--phone-rx', '0deg')
+    event.currentTarget.style.setProperty('--phone-ry', '0deg')
+  }
+
+  return (
+    <main className="apk-download">
+      <div className="apk-noise" aria-hidden="true" />
+
+      <header className="apk-header">
+        <a className="apk-brand" href="/" aria-label="NudeMeet">
+          <img src="/android-chrome-192x192.png" alt="" />
+          <strong><span>Nude</span><em>Meet</em></strong>
         </a>
-        <div className="download-nav-actions">
-          <span className="release-pill"><i /> Versao beta</span>
-          <a href="/">Ja tenho acesso <span aria-hidden="true">&#8599;</span></a>
+        <div className="apk-header-badges">
+          <span className="apk-age">18+</span>
+          <span className="apk-android-badge">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M9 12h14v11a2 2 0 0 1-2 2H11a2 2 0 0 1-2-2V12Zm2-3 2-3m8 3-2-3M7 13v9m18-9v9M12 25v4m8-4v4" /><circle cx="13" cy="15" r="1" /><circle cx="19" cy="15" r="1" /></svg>
+            Android oficial
+          </span>
         </div>
       </header>
 
-      <section className="download-hero">
-        <div className="download-copy">
-          <p className="download-eyebrow"><span>18+</span> Aplicativo Android oficial</p>
-          <h1>Leve a <em>conexao</em><br />com voce.</h1>
-          <p className="download-lead">Conversas, matches e chamadas em um aplicativo direto, privado e feito para acompanhar seu ritmo.</p>
-
-          <a
-            className={`download-cta${downloadStarted ? ' is-started' : ''}`}
-            href="/NudeMeet.apk"
-            download="NudeMeet.apk"
-            onClick={handleDownload}
-          >
-            <span className="download-cta-icon" aria-hidden="true">
-              <svg viewBox="0 0 32 32"><path d="M16 3v17M9 14l7 7 7-7M5 27h22" /></svg>
-            </span>
-            <span className="download-cta-copy">
-              <strong>{downloadStarted ? 'Download iniciado' : 'Baixar NudeMeet'}</strong>
-              <small>APK para Android &middot; 44,5 MB</small>
-            </span>
-            <span className="download-cta-arrow" aria-hidden="true">&#8594;</span>
+      <section className="apk-hero">
+        <div className="apk-dot-field" aria-hidden="true" />
+        <div className="apk-hero-copy" data-apk-reveal>
+          <p className="apk-overline">APLICATIVO OFICIAL</p>
+          <h1>Leve a<br /><em>conexao</em><br />com voce.</h1>
+          <p className="apk-hero-lead">Conversas, matches e chamadas em um aplicativo privado e feito para acompanhar seu ritmo.</p>
+          <a className={`apk-main-download${downloadStarted ? ' is-downloading' : ''}`} href="/NudeMeet.apk" download="NudeMeet.apk" onClick={handleDownload}>
+            <svg className="apk-robot" viewBox="0 0 40 40" aria-hidden="true"><path d="M10 15h20v15a3 3 0 0 1-3 3H13a3 3 0 0 1-3-3V15Zm3-4 3-5m11 5-3-5M7 17v10m26-10v10M15 33v5m10-5v5" /><circle cx="16" cy="19" r="1.3" /><circle cx="24" cy="19" r="1.3" /></svg>
+            <span><strong>{downloadStarted ? 'Download iniciado' : 'Baixar NudeMeet'}</strong><small>APK para Android &middot; Oficial</small></span>
+            <svg className="apk-download-arrow" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3v18M9 15l7 7 7-7M5 28h22" /></svg>
           </a>
-
-          <p className="download-requirements">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 21 6v7c0 5-3.4 8.2-9 10-5.6-1.8-9-5-9-10V6l9-4Z" /><path d="m8 12 2.5 2.5L16 9" /></svg>
-            Download direto e seguro &middot; Android 8 ou superior
-          </p>
+          <p className="apk-safe-note"><svg viewBox="0 0 26 30" aria-hidden="true"><path d="M13 2 24 7v8c0 7-4 11-11 13C6 26 2 22 2 15V7l11-5Z" /><path d="m8 15 3 3 7-8" /></svg> Download seguro, verificado e sem anuncios.</p>
         </div>
 
-        <div className="download-device-stage" aria-label="Previa do aplicativo NudeMeet">
-          <div className="device-orbit orbit-pink" aria-hidden="true" />
-          <div className="device-orbit orbit-cyan" aria-hidden="true" />
-          <div className="download-phone">
-            <div className="phone-speaker" aria-hidden="true" />
-            <div className="phone-screen">
-              <div className="phone-header"><span>21:08</span><span>5G &nbsp; 91%</span></div>
-              <img className="phone-logo" src="/nudemeet-logo.png" alt="" />
-              <p className="phone-kicker">PERTO DE VOCE</p>
-              <div className="phone-profile-art" aria-hidden="true">
-                <span className="profile-light one" /><span className="profile-light two" />
-                <div className="profile-silhouette" />
-                <span className="live-badge"><i /> online agora</span>
+        <div className="apk-phone-stage" data-apk-reveal>
+          <div className="apk-rings" aria-hidden="true"><i /><i /><i /></div>
+          <div className="apk-phone-tilt" onPointerMove={handlePhoneTilt} onPointerLeave={resetPhoneTilt}>
+            <div className="apk-phone">
+              <div className="apk-phone-screen">
+                <div className="apk-phone-status"><span>11:30</span><span>5G&nbsp; &#9679;&nbsp; 90%</span></div>
+                <div className="apk-phone-brand"><img src="/android-chrome-192x192.png" alt="" /><strong><span>Nude</span><em>Meet</em></strong></div>
+
+                <div className="apk-phone-content">
+                  {phoneTab === 'discover' && (
+                    <div className="apk-discover-panel">
+                      <div className="apk-profile-scene"><div className="apk-profile-person" /><span className="apk-profile-halo" /></div>
+                      <div className="apk-profile-caption"><strong>{liked ? 'Deu match!' : 'Novo match'}</strong><span>{liked ? 'Agora e so chamar.' : 'Alguem especial te curtiu'}</span><i>&#9829;</i></div>
+                      <div className="apk-swipe-actions"><button type="button" onClick={() => setLiked(false)} aria-label="Recusar">&#215;</button><button className={liked ? 'is-liked' : ''} type="button" onClick={() => setLiked(true)} aria-label="Curtir">&#9829;</button></div>
+                    </div>
+                  )}
+                  {phoneTab === 'chats' && (
+                    <div className="apk-chat-panel"><h3>Mensagens</h3><div><i>J</i><span><strong>Julia</strong><small>Oi, esta por perto?</small></span><b>2</b></div><div><i>M</i><span><strong>Marina</strong><small>Digitando<span className="typing-dots">...</span></small></span></div><div><i>A</i><span><strong>Ana</strong><small>Curti seu perfil</small></span></div></div>
+                  )}
+                  {phoneTab === 'calls' && (
+                    <div className="apk-call-panel"><span className="apk-call-pulse"><i>&#9829;</i></span><h3>Chamada privada</h3><p>Conexao protegida</p><button type="button">Iniciar chamada</button></div>
+                  )}
+                  {phoneTab === 'profile' && (
+                    <div className="apk-profile-panel"><div className="apk-avatar">N</div><h3>Meu perfil</h3><p>Perfil verificado &middot; 18+</p><div><span>Fotos <b>5</b></span><span>Matches <b>12</b></span></div><button type="button">Editar perfil</button></div>
+                  )}
+                </div>
+
+                <nav className="apk-phone-nav" aria-label="Demonstracao do aplicativo">
+                  <button className={phoneTab === 'discover' ? 'active' : ''} type="button" onClick={() => setPhoneTab('discover')}><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" /><path d="m10 9 5-2-2 5-5 2 2-5Z" /></svg><span>Descobrir</span></button>
+                  <button className={phoneTab === 'chats' ? 'active' : ''} type="button" onClick={() => setPhoneTab('chats')}><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5Z" /></svg><span>Chats</span></button>
+                  <button className={phoneTab === 'calls' ? 'active' : ''} type="button" onClick={() => setPhoneTab('calls')}><svg viewBox="0 0 24 24"><path d="M7 3h4l1 5-3 2c1 3 3 5 6 6l2-3 4 2v4c0 2-2 3-4 2C9 19 4 14 3 6c0-2 1-3 4-3Z" /></svg><span>Chamadas</span></button>
+                  <button className={phoneTab === 'profile' ? 'active' : ''} type="button" onClick={() => setPhoneTab('profile')}><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" /><path d="M4 21c1-5 4-7 8-7s7 2 8 7" /></svg><span>Perfil</span></button>
+                </nav>
+                <div className="apk-phone-home" />
               </div>
-              <div className="phone-profile-info"><strong>Nova conexao</strong><span>2 km de distancia</span></div>
-              <div className="phone-actions"><button type="button" aria-label="Recusar">&#215;</button><button type="button" aria-label="Curtir">&#9829;</button></div>
-              <div className="phone-homebar" aria-hidden="true" />
             </div>
           </div>
-          <div className="floating-chip chip-private"><span>&#10003;</span> Acesso privado</div>
-          <div className="floating-chip chip-fast"><span>&#9889;</span> Instalacao rapida</div>
         </div>
       </section>
 
-      <section className="install-section">
-        <div className="install-heading">
-          <p>INSTALACAO FORA DA LOJA</p>
-          <h2>Pronto em <span>tres passos.</span></h2>
-          <strong>O Android pode solicitar permissao para instalar aplicativos baixados pelo navegador. Isso e normal para arquivos APK.</strong>
+      <section className="apk-content-shell">
+        <div className="apk-steps-section" data-apk-reveal>
+          <div className="apk-section-title"><p>PRONTO EM</p><h2><span>3</span> passos.</h2></div>
+          <div className="apk-steps-grid">
+            <article className="apk-step-card" style={{ '--card-delay': '0ms' }}><b>1</b><div className="apk-card-icon"><svg viewBox="0 0 32 32"><path d="M16 3v17M9 14l7 7 7-7M5 27h22" /></svg></div><h3>Baixe o APK</h3><p>Clique no botao acima e faca o download do instalador.</p></article>
+            <span className="apk-step-arrow">&#8250;</span>
+            <article className="apk-step-card" style={{ '--card-delay': '100ms' }}><b>2</b><div className="apk-card-icon"><svg viewBox="0 0 32 32"><path d="M16 3 27 8v8c0 6-3.7 10-11 13C8.7 26 5 22 5 16V8l11-5Z" /><path d="m11 16 3 3 7-8" /></svg></div><h3>Autorize a instalacao</h3><p>Ative a opcao de instalar apps pelo navegador.</p></article>
+            <span className="apk-step-arrow">&#8250;</span>
+            <article className="apk-step-card" style={{ '--card-delay': '200ms' }}><b>3</b><div className="apk-card-icon"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="12" /><path d="m10 16 4 4 8-9" /></svg></div><h3>Instale e entre</h3><p>Abra o arquivo, instale o app e acesse sua conta.</p></article>
+          </div>
         </div>
-        <div className="install-steps">
-          <article><b>01</b><div className="step-icon"><svg viewBox="0 0 32 32"><path d="M16 3v17M9 14l7 7 7-7M5 27h22" /></svg></div><h3>Baixe o APK</h3><p>Toque no botao principal e aguarde o arquivo terminar de baixar.</p></article>
-          <article><b>02</b><div className="step-icon"><svg viewBox="0 0 32 32"><path d="M16 3 27 8v8c0 6-3.7 10-11 13C8.7 26 5 22 5 16V8l11-5Z" /><path d="M11 16h10M16 11v10" /></svg></div><h3>Autorize a fonte</h3><p>Quando solicitado, permita a instalacao pelo seu navegador.</p></article>
-          <article><b>03</b><div className="step-icon"><svg viewBox="0 0 32 32"><rect x="7" y="3" width="18" height="26" rx="4" /><path d="m11 16 3 3 7-7M13 25h6" /></svg></div><h3>Instale e entre</h3><p>Abra o arquivo, conclua a instalacao e acesse sua conta NudeMeet.</p></article>
+
+        <div className="apk-features-grid" data-apk-reveal>
+          <article style={{ '--feature-color': '#ff2d6f' }}><div><svg viewBox="0 0 32 32"><path d="m18 2-9 16h8l-3 12 10-17h-8l2-11Z" /></svg></div><h3>Acesso rapido</h3><p>Tudo o que voce precisa, na palma da mao.</p></article>
+          <article style={{ '--feature-color': '#ff2d6f' }}><div><svg viewBox="0 0 32 32"><rect x="6" y="13" width="20" height="16" rx="3" /><path d="M10 13V9a6 6 0 0 1 12 0v4M16 20v4" /></svg></div><h3>Privacidade</h3><p>Conversas protegidas e confidenciais.</p></article>
+          <article style={{ '--feature-color': '#00e7cb' }}><div><img src="/pix-icon.svg" alt="" /></div><h3>Pix simples</h3><p>Pagamentos rapidos e seguros.</p></article>
+          <article style={{ '--feature-color': '#00e7cb' }}><div><svg viewBox="0 0 32 32"><path d="M9 12h14v12H9V12Zm3-3 2-4m6 4-2-4M7 14v8m18-8v8M13 24v5m6-5v5" /><circle cx="13" cy="15" r="1" /><circle cx="19" cy="15" r="1" /></svg></div><h3>Feito para Android</h3><p>Desempenho leve e estavel.</p></article>
         </div>
+
+        <div className="apk-trust-bar" data-apk-reveal>
+          <article><svg viewBox="0 0 32 32"><path d="M16 2 28 8v9c0 7-4 11-12 14C8 28 4 24 4 17V8l12-6Z" /><path d="m10 17 4 4 8-10" /></svg><span><strong>Download seguro</strong><small>Arquivo verificado e livre de virus.</small></span></article>
+          <article className="android"><svg viewBox="0 0 32 32"><path d="M9 12h14v12H9V12Zm3-3 2-4m6 4-2-4M7 14v8m18-8v8M13 24v5m6-5v5" /></svg><span><strong>Compativel com Android</strong><small>Funciona na maioria dos dispositivos.</small></span></article>
+          <article><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="10" /><path d="m11 16 3 3 7-8M16 2v4m0 20v4M2 16h4m20 0h4" /></svg><span><strong>Instalacao simples</strong><small>Em poucos passos, voce ja esta dentro.</small></span></article>
+        </div>
+
+        <section className="apk-final-banner" data-apk-reveal>
+          <div className="apk-heart-pattern" aria-hidden="true" />
+          <img src="/android-chrome-192x192.png" alt="" />
+          <div><h2>Baixe. <span>Entre.</span> <em>Conecte.</em></h2><p>Seu proximo match pode estar a um clique.</p></div>
+          <a href="/NudeMeet.apk" download="NudeMeet.apk" onClick={handleDownload}><svg viewBox="0 0 32 32"><path d="M9 12h14v12H9V12Zm3-3 2-4m6 4-2-4M7 14v8m18-8v8M13 24v5m6-5v5" /></svg><span>Baixar para Android</span><b>&#8595;</b></a>
+        </section>
       </section>
 
-      <section className="download-final-cta">
-        <img src="/android-chrome-192x192.png" alt="" />
-        <div><p>Seu proximo match cabe no bolso.</p><h2>Baixe. Entre. <span>Conecte.</span></h2></div>
-        <a href="/NudeMeet.apk" download="NudeMeet.apk" onClick={handleDownload}>Baixar para Android <span>&#8595;</span></a>
-      </section>
-
-      <footer className="download-footer">
-        <span>NudeMeet &copy; 2026 &middot; Conteudo exclusivo para maiores de 18 anos.</span>
-        <div><a href="#termos">Termos</a><a href="#privacidade">Privacidade</a><a href="/">Acessar conta</a></div>
-      </footer>
+      <footer className="apk-footer"><span className="apk-footer-heart">&#9825;</span> NudeMeet &mdash; Conexoes reais, do seu jeito.</footer>
     </main>
   )
 }
