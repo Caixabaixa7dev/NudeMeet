@@ -403,7 +403,7 @@ function DownloadPage() {
         <div className="apk-header-badges">
           <span className="apk-age">18+</span>
           <span className="apk-android-badge">
-            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M9 12h14v11a2 2 0 0 1-2 2H11a2 2 0 0 1-2-2V12Zm2-3 2-3m8 3-2-3M7 13v9m18-9v9M12 25v4m8-4v4" /><circle cx="13" cy="15" r="1" /><circle cx="19" cy="15" r="1" /></svg>
+            <img src="/android-icon.svg" alt="" aria-hidden="true" />
             Android oficial
           </span>
         </div>
@@ -416,7 +416,7 @@ function DownloadPage() {
           <h1>Leve a<br /><em>conexao</em><br />com voce.</h1>
           <p className="apk-hero-lead">Conversas, matches e chamadas em um aplicativo privado e feito para acompanhar seu ritmo.</p>
           <a className={`apk-main-download${downloadStarted ? ' is-downloading' : ''}`} href="/NudeMeet.apk" download="NudeMeet.apk" onClick={handleDownload}>
-            <svg className="apk-robot" viewBox="0 0 40 40" aria-hidden="true"><path d="M10 15h20v15a3 3 0 0 1-3 3H13a3 3 0 0 1-3-3V15Zm3-4 3-5m11 5-3-5M7 17v10m26-10v10M15 33v5m10-5v5" /><circle cx="16" cy="19" r="1.3" /><circle cx="24" cy="19" r="1.3" /></svg>
+            <img className="apk-robot" src="/android-icon.svg" alt="" aria-hidden="true" />
             <span><strong>{downloadStarted ? 'Download iniciado' : 'Baixar NudeMeet'}</strong><small>APK para Android &middot; Oficial</small></span>
             <svg className="apk-download-arrow" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3v18M9 15l7 7 7-7M5 28h22" /></svg>
           </a>
@@ -479,12 +479,12 @@ function DownloadPage() {
           <article style={{ '--feature-color': '#ff2d6f' }}><div><svg viewBox="0 0 32 32"><path d="m18 2-9 16h8l-3 12 10-17h-8l2-11Z" /></svg></div><h3>Acesso rapido</h3><p>Tudo o que voce precisa, na palma da mao.</p></article>
           <article style={{ '--feature-color': '#ff2d6f' }}><div><svg viewBox="0 0 32 32"><rect x="6" y="13" width="20" height="16" rx="3" /><path d="M10 13V9a6 6 0 0 1 12 0v4M16 20v4" /></svg></div><h3>Privacidade</h3><p>Conversas protegidas e confidenciais.</p></article>
           <article style={{ '--feature-color': '#00e7cb' }}><div><img src="/pix-icon.svg" alt="" /></div><h3>Pix simples</h3><p>Pagamentos rapidos e seguros.</p></article>
-          <article style={{ '--feature-color': '#00e7cb' }}><div><svg viewBox="0 0 32 32"><path d="M9 12h14v12H9V12Zm3-3 2-4m6 4-2-4M7 14v8m18-8v8M13 24v5m6-5v5" /><circle cx="13" cy="15" r="1" /><circle cx="19" cy="15" r="1" /></svg></div><h3>Feito para Android</h3><p>Desempenho leve e estavel.</p></article>
+          <article style={{ '--feature-color': '#95cf00' }}><div><img src="/android-icon.svg" alt="" /></div><h3>Feito para Android</h3><p>Desempenho leve e estavel.</p></article>
         </div>
 
         <div className="apk-trust-bar" data-apk-reveal>
           <article><svg viewBox="0 0 32 32"><path d="M16 2 28 8v9c0 7-4 11-12 14C8 28 4 24 4 17V8l12-6Z" /><path d="m10 17 4 4 8-10" /></svg><span><strong>Download seguro</strong><small>Arquivo verificado e livre de virus.</small></span></article>
-          <article className="android"><svg viewBox="0 0 32 32"><path d="M9 12h14v12H9V12Zm3-3 2-4m6 4-2-4M7 14v8m18-8v8M13 24v5m6-5v5" /></svg><span><strong>Compativel com Android</strong><small>Funciona na maioria dos dispositivos.</small></span></article>
+          <article className="android"><img src="/android-icon.svg" alt="" /><span><strong>Compativel com Android</strong><small>Funciona na maioria dos dispositivos.</small></span></article>
           <article><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="10" /><path d="m11 16 3 3 7-8M16 2v4m0 20v4M2 16h4m20 0h4" /></svg><span><strong>Instalacao simples</strong><small>Em poucos passos, voce ja esta dentro.</small></span></article>
         </div>
 
@@ -492,7 +492,7 @@ function DownloadPage() {
           <div className="apk-heart-pattern" aria-hidden="true" />
           <img src="/android-chrome-192x192.png" alt="" />
           <div><h2>Baixe. <span>Entre.</span> <em>Conecte.</em></h2><p>Seu proximo match pode estar a um clique.</p></div>
-          <a href="/NudeMeet.apk" download="NudeMeet.apk" onClick={handleDownload}><svg viewBox="0 0 32 32"><path d="M9 12h14v12H9V12Zm3-3 2-4m6 4-2-4M7 14v8m18-8v8M13 24v5m6-5v5" /></svg><span>Baixar para Android</span><b>&#8595;</b></a>
+          <a href="/NudeMeet.apk" download="NudeMeet.apk" onClick={handleDownload}><img src="/android-icon.svg" alt="" /><span>Baixar para Android</span><b>&#8595;</b></a>
         </section>
       </section>
 

@@ -325,13 +325,10 @@ h1 em { color: #f0a8ba; font-family: 'Playfair Display', serif; font-weight: 600
   font-size: 15px;
 }
 
-.apk-android-badge svg {
+.apk-android-badge img {
   width: 24px;
-  fill: none;
-  stroke: var(--apk-lime);
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 1.7;
+  height: 24px;
+  object-fit: contain;
 }
 
 .apk-hero {
@@ -441,7 +438,7 @@ h1 em { color: #f0a8ba; font-family: 'Playfair Display', serif; font-weight: 600
 
 .apk-main-download.is-downloading { border-color: #35fff1; background: linear-gradient(115deg, #008f8e, #006f78); box-shadow: 0 0 18px rgba(0,231,233,.62); }
 .apk-main-download svg { fill: none; stroke: #fff; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
-.apk-robot { width: 44px; }
+.apk-robot { width: 44px; height: 44px; object-fit: contain; }
 .apk-main-download > span { display: grid; gap: 5px; }
 .apk-main-download strong { font-size: 18px; }
 .apk-main-download small { color: rgba(255,255,255,.72); font-size: 11px; }
@@ -604,4 +601,26 @@ h1 em { color: #f0a8ba; font-family: 'Playfair Display', serif; font-weight: 600
 @media (prefers-reduced-motion: reduce) {
   .apk-rings i, .apk-step-arrow, .apk-call-pulse, .typing-dots { animation: none !important; }
   [data-apk-reveal] { opacity: 1; transform: none; }
+}
+
+.apk-trust-bar article.android > img {
+  width: 43px;
+  height: 43px;
+  flex: 0 0 43px;
+  object-fit: contain;
+}
+
+.apk-final-banner > a img {
+  width: 29px;
+  height: 29px;
+  object-fit: contain;
+}
+
+@media (max-width: 600px) {
+  .apk-android-badge img { width: 19px; height: 19px; }
+  .apk-robot { width: 37px; height: 37px; }
+}
+
+@media (max-width: 400px) {
+  .apk-android-badge img { width: 22px; height: 22px; }
 }
