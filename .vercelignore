@@ -1,3 +1,6 @@
 server/
+dist/
+node_modules/
+.git/
 NUDEMEET LOGO.png
 NudeMeet_logo.svg
