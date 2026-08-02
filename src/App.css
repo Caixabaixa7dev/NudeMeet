@@ -517,6 +517,10 @@ h1 em { color: #f0a8ba; font-family: 'Playfair Display', serif; font-weight: 600
 .apk-discover-panel { height: 100%; }
 .apk-profile-scene { height: 286px; position: relative; overflow: hidden; border: 1px solid rgba(255,23,100,.75); border-radius: 20px; background: radial-gradient(circle at 38% 38%, rgba(255,23,100,.7), transparent 30%), linear-gradient(135deg, #5b0b2c, #120911 54%, #050506); box-shadow: inset 0 0 45px rgba(255,23,100,.18); }
 .apk-profile-scene::after { content: ''; position: absolute; inset: 50% 0 0; background: linear-gradient(transparent, rgba(0,0,0,.86)); }
+.apk-model-photo { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center 35%; filter: saturate(.92) contrast(1.06) brightness(.9); transition: transform 4s ease, filter .35s ease; }
+.apk-profile-scene:hover .apk-model-photo { filter: saturate(1.06) contrast(1.08) brightness(.98); transform: scale(1.045); }
+.apk-live-status { position: absolute; z-index: 4; top: 13px; left: 13px; display: inline-flex; align-items: center; gap: 6px; padding: 7px 10px; border: 1px solid rgba(255,255,255,.55); border-radius: 8px; color: #fff; background: #ee124d; box-shadow: 0 0 15px rgba(238,18,77,.7); font-family: 'DM Mono', monospace; font-size: 8px; font-weight: 700; letter-spacing: .7px; }
+.apk-live-status i { width: 6px; height: 6px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 0 rgba(255,255,255,.75); animation: apk-live-pulse 1.4s ease-out infinite; }
 .apk-profile-halo { width: 190px; height: 190px; position: absolute; left: 50%; top: 42%; border: 2px solid rgba(255,23,100,.47); border-radius: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 30px rgba(255,23,100,.45), inset 0 0 30px rgba(255,23,100,.25); }
 .apk-profile-person { width: 150px; height: 260px; position: absolute; z-index: 2; left: 52%; bottom: -30px; border-radius: 48% 48% 35% 35%; background: radial-gradient(circle at 53% 17%, #150910 0 13%, transparent 13.5%), linear-gradient(104deg, transparent 0 24%, #11090e 25% 72%, transparent 73%); transform: translateX(-50%) rotate(-5deg); filter: drop-shadow(-11px 0 8px #ff1764); }
 .apk-profile-caption { position: relative; z-index: 3; display: grid; gap: 2px; margin: -63px 16px 0; text-align: left; }
@@ -550,6 +554,7 @@ h1 em { color: #f0a8ba; font-family: 'Playfair Display', serif; font-weight: 600
 @keyframes apk-panel-in { from { opacity: 0; transform: translateX(13px); } to { opacity: 1; transform: translateX(0); } }
 @keyframes apk-dots { 50% { opacity: .25; } }
 @keyframes apk-call-pulse { 50% { box-shadow: 0 0 0 20px rgba(255,23,100,.04), 0 0 0 35px rgba(255,23,100,.015), 0 0 45px rgba(255,23,100,.62); } }
+@keyframes apk-live-pulse { 70% { box-shadow: 0 0 0 7px rgba(255,255,255,0); } 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); } }
 
 .apk-content-shell { width: min(1060px, calc(100% - 48px)); margin: 0 auto; }
 .apk-steps-section { padding: 58px 0 34px; }

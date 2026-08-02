@@ -434,7 +434,15 @@ function DownloadPage() {
                 <div className="apk-phone-content">
                   {phoneTab === 'discover' && (
                     <div className="apk-discover-panel">
-                      <div className="apk-profile-scene"><div className="apk-profile-person" /><span className="apk-profile-halo" /></div>
+                      <div className="apk-profile-scene">
+                        <img
+                          className="apk-model-photo"
+                          src="https://static-proxy.strpst.com/avatars/b/e/7/be7606e2296c029cebe51949fdcadee1-full"
+                          alt="Perfil ao vivo"
+                          referrerPolicy="no-referrer"
+                        />
+                        <span className="apk-live-status"><i /> AO VIVO</span>
+                      </div>
                       <div className="apk-profile-caption"><strong>{liked ? 'Deu match!' : 'Novo match'}</strong><span>{liked ? 'Agora e so chamar.' : 'Alguem especial te curtiu'}</span><i>&#9829;</i></div>
                       <div className="apk-swipe-actions"><button type="button" onClick={() => setLiked(false)} aria-label="Recusar">&#215;</button><button className={liked ? 'is-liked' : ''} type="button" onClick={() => setLiked(true)} aria-label="Curtir">&#9829;</button></div>
                     </div>
